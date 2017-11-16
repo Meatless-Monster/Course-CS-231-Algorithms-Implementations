@@ -1,0 +1,28 @@
+def mergeSort(array):
+  if len(array) <=1:
+    return array
+  mid = len(array)/2
+  return merge(mergeSort(array[:round(mid)]), mergeSort(array[round(mid):]))
+  
+def merge(list1, list2):
+  sort = []
+  while list1 and list2:
+    mini = min(list1[0], list2[0])
+    sort.append(mini)
+    if mini == list1[0]:
+      list1 = list1[1:]
+    else:
+      list2 = list2[1:]
+  sort = sort + list1 or list2
+  return sort
+ 
+#testing
+sor1 = [0, 5, 9]
+sor2 = [3, 4, 6]
+print(merge(sor1, sor2))
+
+array1 = [51, 3, 0, 9, 8, 5]
+print(mergeSort(array1))
+
+    
+    
