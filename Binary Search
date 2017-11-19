@@ -1,0 +1,19 @@
+def binarySearch(array, target):
+  if len(array)<=1:
+    return array[0] == target
+  
+  else:
+    k = int(len(array)/2)
+    if array[k] == target:
+      return True
+    elif array[k] <target:
+      return binarySearch(array[k+1:], target)
+    else:
+      return binarySearch(array[0:k], target)
+      
+# testing
+
+array1 = [0, 2, 6, 17]
+target1 = 2
+
+print(binarySearch(array1, target1))
