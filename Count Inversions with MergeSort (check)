@@ -1,0 +1,40 @@
+def inverCount(array):
+  if len(array) <=1:
+    return (array, 0)
+  else:
+    mid = len(array)/2
+    (right, a) = inverCount(array[:round(mid)])
+    (left, b) = inverCount(array[round(mid):])
+    (merged, c) = merge(right, left)
+    return (merged, a+b+c)
+  
+def merge(list1, list2):
+  sort = []
+  inversions = 0
+  while list1 and list2:
+    mini = min(list1[0], list2[0])
+    sort.append(mini)
+    if mini == list1[0]:
+      list1 = list1[1:]
+    else:
+      list2 = list2[1:]
+      inversions +=1
+  sort = sort + list1 or list2
+  return (sort, inversions)
+  
+  #testing
+sor1 = [0, 5, 9]
+sor2 = [3, 4, 6]
+print(merge(sor1, sor2))
+
+array1 = [51, 3, 0, 9, 8, 5]
+print(inverCount([51, 3, 0]))
+
+
+print(inverCount(array1))
+
+# 3 51   0 9    5 8  +2 
+
+# 0 3 9 51      5 8  +2 
+
+# 0 3 5 8 9 51   +2
