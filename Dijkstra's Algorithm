@@ -1,0 +1,39 @@
+import heapq
+
+graph = {'a':{'b':10, 'c':3}, 'b':{'c':1, 'd':2}, 'c':{'b':4, 'd':8, 'e':2}, 'd':{'e': 7}, 'e':{'d':9}}
+
+graph2 = {'a':{'b':10, 'c':3}, 'b':{'c':1}, 'c':{'b':4, 'e':2}, 'd':{'e': 7}, 'e':{}}
+
+def dijkstra(graph, start, end):
+  ante = {}
+  val = {}
+  path = []
+  pq = []
+  
+  for item in graph:
+    val[item] = float('inf')
+    
+  heapq.heappush(pq, start)
+  val[start] = 0
+  
+  while len(pq)!=0:
+    current = heapq.heappop(pq)
+    for i in graph[current]:
+      val[i] = min(val[i], val[current]+graph[current][i])
+      if val[i] == (val[current]+graph[current][i]):
+        ante[i] = current
+        heapq.heappush(pq, i)
+  try:        
+    now = end
+    while now != start:
+      path.insert(0, now)
+      now = ante[now]
+    path.insert(0, start)
+
+  except:
+    return "no path found"
+    
+  return path
+  
+print(dijkstra(graph, 'a', 'd'))
+print(dijkstra(graph2, 'a', 'd'))
